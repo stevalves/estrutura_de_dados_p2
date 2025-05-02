@@ -35,6 +35,8 @@
 # Dicts
 - Objetos que guardarão todos os dados
 
-# Listas Encadeadas???
+# Listas Encadeadas
+- ???
 
-# Arvóre Binária???
+# Arvóre Binária
+- ???

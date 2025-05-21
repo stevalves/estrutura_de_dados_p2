@@ -1,7 +1,18 @@
-clientes = []
+clientes = [
+    {"id": 1, "nome": "Ana Souza", "email": "ana.souza@gmail.com"},
+    {"id": 2, "nome": "Bruno Lima", "email": "bruno.lima@hotmail.com"},
+    {"id": 3, "nome": "Carla Mendes", "email": "carla.mendes@yahoo.com"},
+]
 emails_cadastrados = set()
+emails_cadastrados.add("clientea@mail.com")
+emails_cadastrados.add("clienteb@mail.com")
+emails_cadastrados.add("clientec@mail.com")
+
+id_cliente = 1 + len(clientes)
+
 
 def criar_cliente():
+    global id_cliente
     nome = input("Nome: ")
     email = input("Email: ")
 
@@ -10,13 +21,15 @@ def criar_cliente():
         return
 
     cliente = {
-        "id": len(clientes) + 1,
+        "id": id_cliente,
         "nome": nome,
         "email": email,
     }
     clientes.append(cliente)
     emails_cadastrados.add(email)
+    id_cliente += 1
     print("Cliente cadastrado com sucesso!")
+
 
 def listar_clientes():
     if not clientes:
@@ -24,31 +37,44 @@ def listar_clientes():
         return
     print("\n--- Lista de Clientes ---")
     for cliente in clientes:
-        print(f"ID: {cliente['id']}, Nome: {cliente['nome']}, Email: {cliente['email']}")
+        print(
+            f"ID: {cliente['id']}, Nome: {cliente['nome']}, Email: {cliente['email']}"
+        )
+
 
 def editar_cliente():
-    id = input("Digite o id do cliente a ser editado: ")
+    id_cliente = int(input("Digite o id do cliente a ser editado: "))
     for cliente in clientes:
-        if cliente['id'] == id:
+        if cliente["id"] == id_cliente:
             novo_nome = input("Novo nome: ")
             novo_email = input("Novo email: ")
-            if novo_email in emails_cadastrados and novo_email != cliente['email']:
+            if novo_email in emails_cadastrados and novo_email != cliente["email"]:
                 print("Email já cadastrado!")
                 return
-            emails_cadastrados.discard(cliente['email'])
-            cliente['email'] = novo_email
-            emails_cadastrados.add(novo_email)
-            cliente['nome'] = novo_nome
+            if novo_email:
+                emails_cadastrados.discard(cliente["email"])
+                cliente["email"] = novo_email
+                emails_cadastrados.add(novo_email)
+            if novo_nome:
+                cliente["nome"] = novo_nome
             print("Cliente atualizado com sucesso!")
             return
     print("Cliente não encontrado.")
 
+
 def excluir_cliente():
-    id = input("Digite o id do cliente a ser excluído: ")
+    id_cliente = int(input("Digite o id do cliente a ser excluído: "))
     for cliente in clientes:
-        if cliente['id'] == id:
+        if cliente["id"] == id_cliente:
             clientes.remove(cliente)
-            emails_cadastrados.remove(cliente['email'])
+            emails_cadastrados.remove(cliente["email"])
             print("Cliente excluído com sucesso!")
             return
     print("Cliente não encontrado.")
+
+
+def pegar_cliente_por_id(id):
+    for cliente in clientes:
+        if cliente["id"] == id:
+            return cliente
+    return None

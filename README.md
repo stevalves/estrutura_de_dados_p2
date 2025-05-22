@@ -44,7 +44,7 @@ O sistema utiliza as seguintes estruturas de dados:
 - Excluir compra por ID
 - Cancelar última compra (estrutura de lista encadeada)
 
-### 🏷️ Cupons - (Extra)
+### 🏷️ Cupons - (Funcionalidade Extra)
 - Criar cupom (com código e desconto)
 - Listar cupom
 - Editar cupom

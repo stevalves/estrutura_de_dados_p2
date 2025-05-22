@@ -52,7 +52,7 @@ class ListaEncadeadaCompras:
             if cupom:
                 desconto = cupom["desconto"]
                 valor_total -= desconto
-                valor_total = max(valor_total, 0.0)  # Garante que não fique negativo
+                valor_total = max(valor_total, 0.0) 
             else:
                 desconto = 0
 

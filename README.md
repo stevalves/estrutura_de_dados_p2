@@ -21,13 +21,13 @@ O sistema utiliza as seguintes estruturas de dados:
 ## 🗂️ Funcionalidades
 
 ### 👤 Clientes
-- Criar cliente
+- Criar cliente (com nome e e-mail)
 - Listar clientes
 - Editar cliente
 - Excluir cliente
 
-### 🏪 Lojas
-- Criar loja
+### 🏪 Lojas 
+- Criar loja (com nome e localização)
 - Listar lojas
 - Editar loja
 - Excluir loja
@@ -39,10 +39,16 @@ O sistema utiliza as seguintes estruturas de dados:
 - Excluir produto
 
 ### 🛒 Compras
-- Criar compra (cliente, produto e quantidade)
+- Criar compra (com cliente, produto e quantidade)
 - Listar compras
 - Excluir compra por ID
 - Cancelar última compra (estrutura de lista encadeada)
+
+### 🏷️ Cupons - (Extra)
+- Criar cupom (com código e desconto)
+- Listar cupom
+- Editar cupom
+- Excluir cupom
 
 ---
 
@@ -52,6 +58,7 @@ O sistema utiliza as seguintes estruturas de dados:
 - |_produto.py       # Gerenciamento de produtos
 - |_compra.py        # Lista encadeada para compras
 - |_index.py          # Menu principal de navegação
+- |_cupom.py          # Gerenciamento de cupons
 - |_README.md        # Este arquivo
 - |_projeto.md        # Projeto do professor resumido
 - |_padroes_de_projeto.md # Ideias pensadas e padrões para o projeto

@@ -53,10 +53,8 @@ def editar_loja():
     id_loja = int(input("Digite o id da loja a ser editada: "))
     for loja in lojas:
         if loja["id"] == id_loja:
-            novo_nome = input("Novo nome (deixe vazio para não alterar): ")
-            nova_localizacao = input(
-                "Nova localização (deixe vazio para não alterar): "
-            )
+            novo_nome = input("Novo nome (pressione Enter para manter): ")
+            nova_localizacao = input("Nova localização (pressione Enter para manter): ")
             if novo_nome:
                 loja["nome"] = novo_nome
             if nova_localizacao:

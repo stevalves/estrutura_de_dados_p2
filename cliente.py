@@ -4,9 +4,9 @@ clientes = [
     {"id": 3, "nome": "Carla Mendes", "email": "carla.mendes@yahoo.com"},
 ]
 emails_cadastrados = set()
-emails_cadastrados.add("clientea@mail.com")
-emails_cadastrados.add("clienteb@mail.com")
-emails_cadastrados.add("clientec@mail.com")
+emails_cadastrados.add("ana.souza@gmail.com")
+emails_cadastrados.add("bruno.lima@hotmail.com")
+emails_cadastrados.add("carla.mendes@yahoo.com")
 
 id_cliente = 1 + len(clientes)
 
@@ -46,8 +46,8 @@ def editar_cliente():
     id_cliente = int(input("Digite o id do cliente a ser editado: "))
     for cliente in clientes:
         if cliente["id"] == id_cliente:
-            novo_nome = input("Novo nome: ")
-            novo_email = input("Novo email: ")
+            novo_nome = input("Novo nome (pressione Enter para manter): ")
+            novo_email = input("Novo email (pressione Enter para manter): ")
             if novo_email in emails_cadastrados and novo_email != cliente["email"]:
                 print("Email já cadastrado!")
                 return

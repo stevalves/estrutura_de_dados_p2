@@ -1,16 +1,18 @@
 from cliente import pegar_cliente_por_id, listar_clientes
 from produto import pegar_produto_por_id, listar_produtos
+from cupom import pegar_cupom_por_codigo, listar_cupons
 
 
 class NoCompra:
     contador_id = 1
 
-    def __init__(self, cliente, produto, quantidade):
+    def __init__(self, cliente, produto, quantidade, cupom=None):
         self.dados = {
             "id": NoCompra.contador_id,
             "cliente": cliente,
             "produto": produto,
             "quantidade": quantidade,
+            "cupom": cupom,
         }
         NoCompra.contador_id += 1
         self.proximo = None
@@ -20,8 +22,8 @@ class ListaEncadeadaCompras:
     def __init__(self):
         self.inicio = None
 
-    def adicionar_compra(self, cliente, produto, quantidade):
-        nova_compra = NoCompra(cliente, produto, quantidade)
+    def adicionar_compra(self, cliente, produto, quantidade, cupom=None):
+        nova_compra = NoCompra(cliente, produto, quantidade, cupom)
         if not self.inicio:
             self.inicio = nova_compra
         else:
@@ -41,9 +43,26 @@ class ListaEncadeadaCompras:
             dados = atual.dados
             cliente = dados["cliente"]
             produto = dados["produto"]
+            quantidade = dados["quantidade"]
+            cupom = dados.get("cupom")
+
+            valor_unitario = produto["info"][1]
+            valor_total = valor_unitario * quantidade
+
+            if cupom:
+                desconto = cupom["desconto"]
+                valor_total -= desconto
+                valor_total = max(valor_total, 0.0)  # Garante que não fique negativo
+            else:
+                desconto = 0
+
             print(
                 f"ID da compra: {dados['id']}, Cliente: {cliente['nome']} ({cliente['email']}), "
-                f"Produto: {produto['info'][0]}, Valor unitário: R${produto['info'][1]:.2f}, Quantidade: {dados['quantidade']}, Valor Total: R${(produto['info'][1] * dados['quantidade']):.2f}"
+                f"Produto: {produto['info'][0]}, Valor unitário: R${valor_unitario:.2f}, "
+                f"Quantidade: {quantidade}, "
+                f"{'Cupom: ' + cupom['codigo'] + ', ' if cupom else ''}"
+                f"Valor Total: R${valor_total:.2f} "
+                f"{'(com R$' + str(desconto) + ' de desconto)' if cupom else ''}"
             )
             atual = atual.proximo
 
@@ -104,6 +123,7 @@ def criar_compra():
     if not produto:
         print("Produto não encontrado.")
         return
+
     try:
         quantidade = int(input("Quantidade: "))
         if quantidade <= 0:
@@ -113,7 +133,17 @@ def criar_compra():
         print("Quantidade inválida.")
         return
 
-    compras.adicionar_compra(cliente, produto, quantidade)
+    usar_cupom = input("Deseja usar um cupom? (s/n): ").strip().lower()
+    cupom = None
+    if usar_cupom == "s":
+        listar_cupons()
+        codigo = input("Digite o código do cupom: ").strip().upper()
+        cupom = pegar_cupom_por_codigo(codigo)
+        if not cupom:
+            print("Cupom inválido. A compra será registrada sem cupom.")
+            cupom = None
+
+    compras.adicionar_compra(cliente, produto, quantidade, cupom)
 
 
 def listar_compras():

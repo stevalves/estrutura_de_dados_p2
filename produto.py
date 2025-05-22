@@ -1,13 +1,17 @@
 from loja import pegar_loja_por_id, listar_lojas
 
 produtos = [
-    {"id": 1, "info": ("Arroz Tio João 5kg", 24.90), "loja": "Supermercado Pão de Açúcar"},
+    {
+        "id": 1,
+        "info": ("Arroz Tio João 5kg", 24.90),
+        "loja": "Supermercado Pão de Açúcar",
+    },
     {"id": 2, "info": ("Leite Italac 1L", 4.75), "loja": "Carrefour Hipermercado"},
     {"id": 3, "info": ("Café Pilão 500g", 16.80), "loja": "Extra Supermercado"},
     {"id": 4, "info": ("Óleo de Soja Soya 900ml", 6.50), "loja": "Assaí Atacadista"},
     {"id": 5, "info": ("Açúcar União 1kg", 3.90), "loja": "Dia Supermercado"},
 ]
-id_produto = 1+len(produtos)
+id_produto = 1 + len(produtos)
 
 
 def criar_produto():
@@ -42,14 +46,12 @@ def editar_produto():
     id_produto = int(input("Digite o id do produto a ser editado: "))
     for produto in produtos:
         if id_produto == id_produto:
-            novo_nome = input("Novo nome (deixe vazio para não alterar):")
-            novo_preco = float(input("Novo preço (deixe vazio para não alterar):"))
+            novo_nome = input("Novo nome (pressione Enter para manter):")
+            novo_preco = input("Novo preço (pressione Enter para manter):")
             if novo_nome:
                 produto["info"] = (novo_nome, produto["info"][1])
             if novo_preco:
-                produto["info"] = (produto["info"][0], novo_preco)
-            else:
-                produto["info"] = (produto["info"][0], produto["info"][1])
+                produto["info"] = (produto["info"][0], float(novo_preco))
             print("Produto atualizado com sucesso!")
             return
     print("Produto não encontrado.")

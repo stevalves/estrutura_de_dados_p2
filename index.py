@@ -2,6 +2,7 @@ from cliente import criar_cliente, listar_clientes, editar_cliente, excluir_clie
 from loja import criar_loja, listar_lojas, editar_loja, excluir_loja
 from produto import criar_produto, listar_produtos, editar_produto, excluir_produto
 from compra import criar_compra, listar_compras, cancelar_ultima_compra
+from cupom import adicionar_cupom, listar_cupons, editar_cupom, excluir_cupom
 
 mensagens = {
     "menu_principal": """
@@ -10,7 +11,16 @@ mensagens = {
 2. Opções Lojas
 3. Opções Produtos
 4. Opções Compras
+5. Opções Cupons
 0. Sair
+""",
+    "menu_cupom": """
+===== Menu Cupom =====
+1. Adicionar Cupom
+2. Listar Cupons
+3. Editar Cupom
+4. Excluir Cupom
+0. Voltar
 """,
     "menu_clientes": """
 --- Menu Clientes ---
@@ -119,6 +129,24 @@ def menu():
                             listar_compras()
                         case "3":
                             cancelar_ultima_compra()
+                        case "0":
+                            break
+                        case _:
+                            print(mensagens["opcao_invalida"])
+            case "5":
+                while True:
+                    print(mensagens["menu_cupom"])
+                    opcao_cupom = input("Escolha uma opção: ")
+
+                    match opcao_cupom:
+                        case "1":
+                            adicionar_cupom()
+                        case "2":
+                            listar_cupons()
+                        case "3":
+                            editar_cupom()
+                        case "4":
+                            excluir_cupom()
                         case "0":
                             break
                         case _:

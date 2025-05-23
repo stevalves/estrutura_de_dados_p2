@@ -43,24 +43,28 @@ def listar_produtos():
 
 
 def editar_produto():
-    id_produto = int(input("Digite o id do produto a ser editado: "))
+    id_alvo = int(input("Digite o id do produto a ser editado: "))
     for produto in produtos:
-        if id_produto == id_produto:
-            novo_nome = input("Novo nome (pressione Enter para manter):")
-            novo_preco = input("Novo preço (pressione Enter para manter):")
+        if produto["id"] == id_alvo:
+            novo_nome = input("Novo nome (pressione Enter para manter): ")
+            novo_preco = input("Novo preço (pressione Enter para manter): ")
             if novo_nome:
                 produto["info"] = (novo_nome, produto["info"][1])
             if novo_preco:
-                produto["info"] = (produto["info"][0], float(novo_preco))
+                try:
+                    novo_preco_float = float(novo_preco)
+                    produto["info"] = (produto["info"][0], novo_preco_float)
+                except ValueError:
+                    print("Preço inválido. Alteração ignorada.")
             print("Produto atualizado com sucesso!")
             return
     print("Produto não encontrado.")
 
 
 def excluir_produto():
-    id_produto = int(input("Digite o id do produto a ser excluído: "))
+    id_alvo = int(input("Digite o id do produto a ser excluído: "))
     for produto in produtos:
-        if id_produto == id_produto:
+        if produto["id"] == id_alvo:
             produtos.remove(produto)
             print("Produto excluído com sucesso!")
             return
